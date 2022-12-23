@@ -1,9 +1,8 @@
 import express from "express";
+import router from "./router";
 
 const app = express();
 
-app.get("/", async (req, res) => {
-  res.status(200).send("<p>home html</p>");
-});
+app.use("/api", router);
 
 export default app;
