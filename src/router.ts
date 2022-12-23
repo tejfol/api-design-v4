@@ -7,9 +7,7 @@ const router = Router();
  */
 router.get("/product/:id", () => {});
 router.get("/product", (req, res) => {
-  console.log("jeje");
-
-  res.json({ ufckOf: "nice" });
+  res.json({ "/product": "route initialized", customData: res.sdfg });
 });
 router.put("/product/:id", () => {});
 router.post("/product", () => {});
