@@ -1,15 +1,15 @@
-"use strict";
-var __awaiter =
+'use strict';
+const __awaiter =
   (this && this.__awaiter) ||
   function (thisArg, _arguments, P, generator) {
     function adopt(value) {
       return value instanceof P
         ? value
-        : new P(function (resolve) {
+        : new P(resolve => {
             resolve(value);
           });
     }
-    return new (P || (P = Promise))(function (resolve, reject) {
+    return new (P || (P = Promise))((resolve, reject) => {
       function fulfilled(value) {
         try {
           step(generator.next(value));
@@ -19,7 +19,7 @@ var __awaiter =
       }
       function rejected(value) {
         try {
-          step(generator["throw"](value));
+          step(generator['throw'](value));
         } catch (e) {
           reject(e);
         }
@@ -32,10 +32,10 @@ var __awaiter =
       step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
   };
-var __generator =
+const __generator =
   (this && this.__generator) ||
   function (thisArg, body) {
-    var _ = {
+    let _ = {
         label: 0,
         sent: function () {
           if (t[0] & 1) throw t[1];
@@ -49,8 +49,8 @@ var __generator =
       t,
       g;
     return (
-      (g = { next: verb(0), throw: verb(1), return: verb(2) }),
-      typeof Symbol === "function" &&
+      (g = {next: verb(0), throw: verb(1), return: verb(2)}),
+      typeof Symbol === 'function' &&
         (g[Symbol.iterator] = function () {
           return this;
         }),
@@ -62,7 +62,7 @@ var __generator =
       };
     }
     function step(op) {
-      if (f) throw new TypeError("Generator is already executing.");
+      if (f) throw new TypeError('Generator is already executing.');
       while ((g && ((g = 0), op[0] && (_ = 0)), _))
         try {
           if (
@@ -70,9 +70,9 @@ var __generator =
             y &&
               (t =
                 op[0] & 2
-                  ? y["return"]
+                  ? y['return']
                   : op[0]
-                  ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
+                  ? y['throw'] || ((t = y['return']) && t.call(y), 0)
                   : y.next) &&
               !(t = t.call(y, op[1])).done)
           )
@@ -85,7 +85,7 @@ var __generator =
               break;
             case 4:
               _.label++;
-              return { value: op[1], done: false };
+              return {value: op[1], done: false};
             case 5:
               _.label++;
               y = op[1];
@@ -129,30 +129,30 @@ var __generator =
           f = t = 0;
         }
       if (op[0] & 5) throw op[1];
-      return { value: op[0] ? op[1] : void 0, done: true };
+      return {value: op[0] ? op[1] : void 0, done: true};
     }
   };
-var __importDefault =
+const __importDefault =
   (this && this.__importDefault) ||
   function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
+    return mod && mod.__esModule ? mod : {default: mod};
   };
 exports.__esModule = true;
 exports.signIn = exports.signUp = void 0;
-var db_1 = __importDefault(require("../db"));
-var auth_1 = require("../modules/auth");
-var signUp = function (req, res) {
+const db_1 = __importDefault(require('../db'));
+const auth_1 = require('../modules/auth');
+const signUp = function (req, res) {
   return __awaiter(void 0, void 0, void 0, function () {
-    var _a, username, password, user, _b, _c, token, error_1;
-    var _d, _e;
-    return __generator(this, function (_f) {
+    let _a, username, password, user, _b, _c, token, error_1;
+    let _d, _e;
+    return __generator(this, _f => {
       switch (_f.label) {
         case 0:
           (_a = req.body), (username = _a.username), (password = _a.password);
           _f.label = 1;
         case 1:
           _f.trys.push([1, 4, , 5]);
-          _c = (_b = db_1["default"].user).create;
+          _c = (_b = db_1['default'].user).create;
           _d = {};
           _e = {
             username: username,
@@ -166,7 +166,7 @@ var signUp = function (req, res) {
         case 3:
           user = _f.sent();
           token = (0, auth_1.createJWT)(user);
-          res.json({ token: token });
+          res.json({token: token});
           return [3 /*break*/, 5];
         case 4:
           error_1 = _f.sent();
@@ -179,10 +179,10 @@ var signUp = function (req, res) {
   });
 };
 exports.signUp = signUp;
-var signIn = function (req, res) {
+const signIn = function (req, res) {
   return __awaiter(void 0, void 0, void 0, function () {
-    var _a, username, password, user, isValid, token, error_2;
-    return __generator(this, function (_b) {
+    let _a, username, password, user, isValid, token, error_2;
+    return __generator(this, _b => {
       switch (_b.label) {
         case 0:
           (_a = req.body), (username = _a.username), (password = _a.password);
@@ -191,7 +191,7 @@ var signIn = function (req, res) {
           _b.trys.push([1, 4, , 5]);
           return [
             4 /*yield*/,
-            db_1["default"].user.findUnique({
+            db_1['default'].user.findUnique({
               where: {
                 username: username,
               },
@@ -217,7 +217,7 @@ var signIn = function (req, res) {
           res.json({
             token: token,
             message:
-              "Bitch, you are logged in to the system, congratulation you motherfucker!",
+              'Bitch, you are logged in to the system, congratulation you motherfucker!',
           });
           return [3 /*break*/, 5];
         case 4:
