@@ -1,32 +1,32 @@
-"use strict";
+'use strict';
 exports.__esModule = true;
-var express_1 = require("express");
-var router = (0, express_1.Router)();
+const express_1 = require('express');
+const router = (0, express_1.Router)();
 /**
  * Create
  */
-router.get("/product/:id", function () { });
-router.get("/product", function (req, res) {
-    res.json({ "/product": "route initialized", customData: res.sdfg });
+router.get('/product/:id', () => {});
+router.get('/product', (req, res) => {
+  res.json({'/product': 'route initialized', customData: res.sdfg});
 });
-router.put("/product/:id", function () { });
-router.post("/product", function () { });
-router["delete"]("/product/:id", function () { });
+router.put('/product/:id', () => {});
+router.post('/product', () => {});
+router['delete']('/product/:id', () => {});
 /**
  * Update
  */
-router.get("/update/:id", function () { });
-router.get("/update", function () { });
-router.put("/update/:id", function () { });
-router.post("/update", function () { });
-router["delete"]("/update/:id", function () { });
+router.get('/update/:id', () => {});
+router.get('/update', () => {});
+router.put('/update/:id', () => {});
+router.post('/update', () => {});
+router['delete']('/update/:id', () => {});
 /**
  * Update Points
  */
-router.get("/updatepoint/:id", function () { });
-router.get("/updatepoint", function () { });
-router.put("/updatepoint/:id", function () { });
-router.post("/updatepoint", function () { });
-router["delete"]("/updatepoint/:id", function () { });
-exports["default"] = router;
+router.get('/updatepoint/:id', () => {});
+router.get('/updatepoint', () => {});
+router.put('/updatepoint/:id', () => {});
+router.post('/updatepoint', () => {});
+router['delete']('/updatepoint/:id', () => {});
+exports['default'] = router;
 //# sourceMappingURL=router.js.map

@@ -1,22 +1,25 @@
-import express from "express";
-import router from "./router";
+import express from 'express';
+import router from './router';
 
-import morgan from "morgan";
+import morgan from 'morgan';
+import helmet from 'helmet';
 
 // middleware
-import { protectThis } from "./modules/auth";
-import { signUp, signIn } from "./handlers/user";
+import {protectThis} from './modules/auth';
+import {signUp, signIn} from './handlers/user';
 
 const app = express();
 
+app.use(helmet());
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 
-app.use("/api", protectThis, router);
+app.use('/api', protectThis, router);
 
-app.post("/sign-up", signUp);
-app.post("/sign-in", signIn);
+app.post('/sign-up', signUp);
+app.post('/sign-in', signIn);
 
 export default app;

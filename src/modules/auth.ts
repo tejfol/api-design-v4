@@ -1,5 +1,5 @@
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 // For sign-in.
 export const comparePasswords = (password, hash) => {
@@ -7,13 +7,13 @@ export const comparePasswords = (password, hash) => {
 };
 
 // For sign-up.
-export const hashPassword = (password) => {
+export const hashPassword = password => {
   return bcrypt.hash(password, 5);
 };
 
 // Function to create a JWT token and send back to him on sign-up.
 // After that the frontend should keep this token in the localStorage.
-export const createJWT = (user) => {
+export const createJWT = user => {
   const token = jwt.sign(
     {
       id: user.id,
@@ -31,17 +31,17 @@ export const protectThis = (req, res, next) => {
   // If no token, send back an error message.
   if (!bearer) {
     res.status(401);
-    res.json({ message: "not authorized" });
+    res.json({message: 'not authorized'});
     return;
   }
 
   // We split the userSent bearer token into pieces, we need only the token part.
-  const [, token] = bearer.split(" ");
+  const [, token] = bearer.split(' ');
 
   // If no token, send back an error message.
   if (!token) {
     res.status(401);
-    res.json({ message: "not authorized" });
+    res.json({message: 'not authorized'});
     return;
   }
 
@@ -53,7 +53,7 @@ export const protectThis = (req, res, next) => {
   } catch (error) {
     console.log(error);
     res.status(401);
-    res.json({ message: "not a valid token" });
+    res.json({message: 'not a valid token'});
     return;
   }
 };
