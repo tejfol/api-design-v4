@@ -2,11 +2,11 @@ import prisma from '../db';
 
 // Get all
 export const getProducts = async (req, res) => {
-  const {id} = req.user;
+  const {id: userId} = req.user;
 
   const user = await prisma.user.findUnique({
     where: {
-      id: id,
+      id: userId,
     },
     include: {
       products: true,
@@ -19,13 +19,15 @@ export const getProducts = async (req, res) => {
 };
 
 // Get one
+// !! Shit not working, return is null because of belongsToId: id
 export const getOneProduct = async (req, res) => {
   const {id} = req.params;
+  const {id: userId} = req.user;
 
   const product = await prisma.product.findFirst({
     where: {
       id: id,
-      belongsToId: id,
+      belongsToId: userId,
     },
   });
 
@@ -36,12 +38,12 @@ export const getOneProduct = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   const {name} = req.body;
-  const {id} = req.user;
+  const {id: userId} = req.user;
 
   const product = await prisma.product.create({
     data: {
       name: name,
-      belongsToId: id,
+      belongsToId: userId,
     },
   });
 
@@ -49,8 +51,6 @@ export const createProduct = async (req, res) => {
 };
 
 export const updateProduct = async (req, res) => {
-  console.log(req.user);
-
   const {id} = req.params;
   const {id: userId} = req.user;
   const {name} = req.body;
@@ -74,7 +74,7 @@ export const deleteProduct = async (req, res) => {
   const {id} = req.params;
   const {id: userId} = req.user;
 
-  const deleted = prisma.product.delete({
+  const deleted = await prisma.product.delete({
     where: {
       id_belongsToId: {
         id: id,
