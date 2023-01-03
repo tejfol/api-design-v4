@@ -34,11 +34,13 @@ export const getUpdates = async (req, res) => {
 };
 
 export const createUpdate = async (req, res) => {
-  const {id} = req.body;
+  const {productId} = req.body;
+  const {id: userId} = req.user;
 
-  const product = await prisma.product.findUnique({
+  const product = await prisma.product.findFirst({
     where: {
-      id: id,
+      id: productId,
+      belongsToId: userId,
     },
   });
 
@@ -55,11 +57,11 @@ export const createUpdate = async (req, res) => {
 };
 
 export const updateUpdate = async (req, res) => {
-  const {id} = req.user;
+  const {id: userId} = req.user;
 
   const products = await prisma.product.findMany({
     where: {
-      belongsToId: id,
+      belongsToId: userId,
     },
     include: {
       updates: true,
@@ -70,7 +72,7 @@ export const updateUpdate = async (req, res) => {
     return [...allUpdates, ...product.updates];
   }, []);
 
-  const match = updates.filter(update => update.id === id);
+  const match = updates.filter(update => update.id === userId);
 
   if (!match) {
     res.json({message: 'not found any match'});
