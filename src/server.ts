@@ -17,9 +17,22 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(morgan('dev'));
 
+app.get('/', (req, res, next) => {});
+
 app.use('/api', protectThis, router);
 
 app.post('/sign-up', signUp);
 app.post('/sign-in', signIn);
+
+// Can be a custom error handler.
+app.use((error, req, res, next) => {
+  if (error.type === 'auth') {
+    res.status(401).json({message: 'not authorized'});
+  } else if (error.type === 'input') {
+    res.status(401).json({message: 'invalid input'});
+  } else {
+    res.status(401).json({message: 'oops, server error'});
+  }
+});
 
 export default app;

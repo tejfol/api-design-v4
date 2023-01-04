@@ -1,7 +1,7 @@
 import prisma from '../db';
 import {comparePasswords, createJWT, hashPassword} from '../modules/auth';
 
-export const signUp = async (req, res) => {
+export const signUp = async (req, res, next) => {
   const {username, password} = req.body;
 
   try {
@@ -16,11 +16,12 @@ export const signUp = async (req, res) => {
 
     res.json({token});
   } catch (error) {
-    console.log(error);
+    error.type = 'input';
+    next(error);
   }
 };
 
-export const signIn = async (req, res) => {
+export const signIn = async (req, res, next) => {
   const {username, password} = req.body;
 
   try {
@@ -49,6 +50,7 @@ export const signIn = async (req, res) => {
         'Bitch, you are logged in to the system, congratulation you motherfucker!',
     });
   } catch (error) {
-    console.log(error);
+    error.type = 'input';
+    next(error);
   }
 };

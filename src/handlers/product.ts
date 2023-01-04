@@ -36,52 +36,64 @@ export const getOneProduct = async (req, res) => {
   });
 };
 
-export const createProduct = async (req, res) => {
+export const createProduct = async (req, res, next) => {
   const {name} = req.body;
   const {id: userId} = req.user;
 
-  const product = await prisma.product.create({
-    data: {
-      name: name,
-      belongsToId: userId,
-    },
-  });
+  try {
+    const product = await prisma.product.create({
+      data: {
+        name: name,
+        belongsToId: userId,
+      },
+    });
 
-  res.json({data: product});
+    res.json({data: product});
+  } catch (error) {
+    next(error);
+  }
 };
 
-export const updateProduct = async (req, res) => {
+export const updateProduct = async (req, res, next) => {
   const {id} = req.params;
   const {id: userId} = req.user;
   const {name} = req.body;
 
-  const updated = await prisma.product.update({
-    where: {
-      id_belongsToId: {
-        id: id,
-        belongsToId: userId,
+  try {
+    const updated = await prisma.product.update({
+      where: {
+        id_belongsToId: {
+          id: id,
+          belongsToId: userId,
+        },
       },
-    },
-    data: {
-      name: name,
-    },
-  });
+      data: {
+        name: name,
+      },
+    });
 
-  res.json({data: updated});
+    res.json({data: updated});
+  } catch (error) {
+    next(error);
+  }
 };
 
-export const deleteProduct = async (req, res) => {
+export const deleteProduct = async (req, res, next) => {
   const {id} = req.params;
   const {id: userId} = req.user;
 
-  const deleted = await prisma.product.delete({
-    where: {
-      id_belongsToId: {
-        id: id,
-        belongsToId: userId,
+  try {
+    const deleted = await prisma.product.delete({
+      where: {
+        id_belongsToId: {
+          id: id,
+          belongsToId: userId,
+        },
       },
-    },
-  });
+    });
 
-  res.json({data: deleted});
+    res.json({data: deleted});
+  } catch (error) {
+    next(error);
+  }
 };
